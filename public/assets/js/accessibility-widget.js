@@ -1408,10 +1408,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _accessibility_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./accessibility.css */ "./src/accessibility.css");
 /* harmony import */ var _toggle_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toggle.png */ "./src/toggle.png");
 /* harmony import */ var _judul_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./judul.svg */ "./src/judul.svg");
-const allowedDomains = ['jogjaprov.go.id', 'www.jogjaprov.go.id', 'localhost'];
+const allowedDomains = ["jogjaprov.go.id", "www.jogjaprov.go.id", "localhost"];
 if (!allowedDomains.includes(window.location.hostname)) {
-    console.warn('Script hanya diizinkan untuk domain jogjaprov.go.id.');
-    throw new Error('Unauthorized domain: ' + window.location.hostname);
+    console.warn("Script hanya diizinkan untuk domain jogjaprov.go.id.");
+    throw new Error("Unauthorized domain: " + window.location.hostname);
 }
 
 
@@ -1490,7 +1490,11 @@ class AccessibilityWidget extends HTMLElement {
           <p data-i18n="adjustContent">Penyesuaian Konten</p>
           <div class="grid-buttons">
             ${this.generateButtons([
-            ["highlight-title", `<img src="${_judul_svg__WEBPACK_IMPORTED_MODULE_2__}" alt="Sorot Judul"/>`, "title"],
+            [
+                "highlight-title",
+                `<img src="${_judul_svg__WEBPACK_IMPORTED_MODULE_2__}" alt="Sorot Judul"/>`,
+                "title",
+            ],
             ["highlight-links", "🔗", "links"],
             ["dyslexia-font", "🧠", "dyslexia"],
             ["letter-spacing", "↔️", "spacing"],
@@ -1566,12 +1570,14 @@ class AccessibilityWidget extends HTMLElement {
             saturateLow: "Saturasi Rendah",
             mono: "Monokrom",
         };
-        return buttons.map(([cls, icon, key]) => `
+        return buttons
+            .map(([cls, icon, key]) => `
       <button class="btn toggle-class" data-class="${cls}">
         <div class="icon-wrapper">${icon}</div>
         <span data-i18n="${key}">${labels[key]}</span>
       </button>
-    `).join("");
+    `)
+            .join("");
     }
     setupTextSelectionReader() {
         document.addEventListener("mouseup", () => {
@@ -1595,33 +1601,33 @@ class AccessibilityWidget extends HTMLElement {
             const langText = langElement.innerText.toLowerCase();
             // Peta bahasa ke BCP 47 codes yang dikenali speechSynthesis
             const langMap = {
-                'indonesian': 'id-ID',
-                'english': 'en-US',
-                'japanese': 'ja-JP',
-                'korean': 'ko-KR',
-                'dutch': 'nl-NL',
-                'chinese (simplified)': 'zh-CN',
-                'chinese (traditional)': 'zh-TW',
-                'russian': 'ru-RU',
-                'arabic': 'ar-SA',
-                'german': 'de-DE',
-                'spanish': 'es-ES',
-                'italian': 'it-IT',
-                'malay': 'ms-MY',
-                'thai': 'th-TH',
-                'vietnamese': 'vi-VN',
-                'hindi': 'hi-IN',
-                'french': 'fr-FR',
-                'armenian': 'hy-AM',
-                'belarusian': 'be-BY',
-                'bulgarian': 'bg-BG',
-                'catalan': 'ca-ES',
-                'frisian': 'fy-NL'
+                indonesian: "id-ID",
+                english: "en-US",
+                japanese: "ja-JP",
+                korean: "ko-KR",
+                dutch: "nl-NL",
+                "chinese (simplified)": "zh-CN",
+                "chinese (traditional)": "zh-TW",
+                russian: "ru-RU",
+                arabic: "ar-SA",
+                german: "de-DE",
+                spanish: "es-ES",
+                italian: "it-IT",
+                malay: "ms-MY",
+                thai: "th-TH",
+                vietnamese: "vi-VN",
+                hindi: "hi-IN",
+                french: "fr-FR",
+                armenian: "hy-AM",
+                belarusian: "be-BY",
+                bulgarian: "bg-BG",
+                catalan: "ca-ES",
+                frisian: "fy-NL",
             };
-            return langMap[langText] || 'id-ID'; // fallback
+            return langMap[langText] || "id-ID"; // fallback
         }
         catch (_b) {
-            return 'id-ID';
+            return "id-ID";
         }
     }
     readText(text) {
@@ -1657,7 +1663,7 @@ class AccessibilityWidget extends HTMLElement {
             this.disableAnimations();
             animDisable.classList.toggle("active");
         });
-        // 
+        //
         readerToggle === null || readerToggle === void 0 ? void 0 : readerToggle.addEventListener("click", () => {
             const wasEnabled = this.speechEnabled;
             this.speechEnabled = !this.speechEnabled;
@@ -1672,8 +1678,12 @@ class AccessibilityWidget extends HTMLElement {
                 if (!className)
                     return;
                 const colorClasses = [
-                    "dark-contrast", "light-contrast", "high-contrast",
-                    "high-saturation", "low-saturation", "monochrome"
+                    "dark-contrast",
+                    "light-contrast",
+                    "high-contrast",
+                    "high-saturation",
+                    "low-saturation",
+                    "monochrome",
                 ];
                 // Jika termasuk dalam kategori warna (hanya satu boleh aktif)
                 if (colorClasses.includes(className)) {
@@ -1696,7 +1706,9 @@ class AccessibilityWidget extends HTMLElement {
                     const isReadingMask = className === "reading-mask";
                     if (isReadingGuide || isReadingMask) {
                         // Matikan yang satunya jika sedang aktif
-                        const otherClass = isReadingGuide ? "reading-mask" : "reading-guide";
+                        const otherClass = isReadingGuide
+                            ? "reading-mask"
+                            : "reading-guide";
                         document.body.classList.remove(otherClass);
                         const otherBtn = document.querySelector(`.toggle-class[data-class="${otherClass}"]`);
                         if (otherBtn)
@@ -1718,10 +1730,21 @@ class AccessibilityWidget extends HTMLElement {
                 readerBtn.classList.remove("active");
             // Reset semua class dari body dan html
             const resetClasses = [
-                "highlight-title", "highlight-links", "dyslexia-font", "letter-spacing",
-                "line-height", "font-weight", "dark-contrast", "light-contrast",
-                "high-contrast", "high-saturation", "low-saturation", "monochrome",
-                "reading-guide", "reading-mask", "big-cursor"
+                "highlight-title",
+                "highlight-links",
+                "dyslexia-font",
+                "letter-spacing",
+                "line-height",
+                "font-weight",
+                "dark-contrast",
+                "light-contrast",
+                "high-contrast",
+                "high-saturation",
+                "low-saturation",
+                "monochrome",
+                "reading-guide",
+                "reading-mask",
+                "big-cursor",
             ];
             document.body.classList.remove(...resetClasses);
             document.documentElement.classList.remove(...Array.from(document.documentElement.classList).filter((cls) => cls.startsWith("font-scale-")));
@@ -1804,10 +1827,26 @@ class AccessibilityWidget extends HTMLElement {
                 "kanan-bawah": { bottom: "20px", right: "20px" },
                 "kiri-atas": { top: "20px", left: "20px" },
                 "kanan-atas": { top: "20px", right: "20px" },
-                "kiri-tengah": { top: "50%", left: "20px", transform: "translateY(-50%)" },
-                "kanan-tengah": { top: "50%", right: "20px", transform: "translateY(-50%)" },
-                "bawah-tengah": { bottom: "20px", left: "50%", transform: "translateX(-50%)" },
-                "atas-tengah": { top: "20px", left: "50%", transform: "translateX(-50%)" }
+                "kiri-tengah": {
+                    top: "50%",
+                    left: "20px",
+                    transform: "translateY(-50%)",
+                },
+                "kanan-tengah": {
+                    top: "50%",
+                    right: "20px",
+                    transform: "translateY(-50%)",
+                },
+                "bawah-tengah": {
+                    bottom: "20px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                },
+                "atas-tengah": {
+                    top: "20px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                },
             };
             Object.assign(widget.style, Object.assign({ top: "", bottom: "", left: "", right: "", transform: "" }, positions[value]));
             menu.classList.remove("open");
@@ -1824,7 +1863,7 @@ class AccessibilityWidget extends HTMLElement {
                 document.body.style.setProperty("--reading-guide-left", `${e.clientX}px`);
             }
         });
-        const toggleContainer = this.querySelector('#accessibility-toggle');
+        const toggleContainer = this.querySelector("#accessibility-toggle");
         if (!toggleContainer)
             return;
         let isDragging = false;
@@ -1856,9 +1895,9 @@ class AccessibilityWidget extends HTMLElement {
                 const top = e.clientY - offsetY;
                 toggleContainer.style.left = `${left}px`;
                 toggleContainer.style.top = `${top}px`;
-                toggleContainer.style.right = 'auto';
-                toggleContainer.style.bottom = 'auto';
-                toggleContainer.style.transform = 'none';
+                toggleContainer.style.right = "auto";
+                toggleContainer.style.bottom = "auto";
+                toggleContainer.style.transform = "none";
             }
         });
         document.addEventListener("mouseup", () => {
@@ -1906,7 +1945,7 @@ class AccessibilityWidget extends HTMLElement {
             "figure",
             "img",
             ".carousel-slide",
-            ".carousel-container"
+            ".carousel-container",
         ];
         selectors.forEach((selector) => {
             document.querySelectorAll(selector).forEach((el) => {
@@ -1919,10 +1958,22 @@ class AccessibilityWidget extends HTMLElement {
     }
     resetAccessibility() {
         const resetClasses = [
-            "highlight-title", "highlight-links", "dyslexia-font", "letter-spacing",
-            "line-height", "font-weight", "dark-contrast", "light-contrast",
-            "high-contrast", "high-saturation", "low-saturation", "monochrome",
-            "reading-guide", "reading-mask", "big-cursor", "no-animations" // tambahkan ini
+            "highlight-title",
+            "highlight-links",
+            "dyslexia-font",
+            "letter-spacing",
+            "line-height",
+            "font-weight",
+            "dark-contrast",
+            "light-contrast",
+            "high-contrast",
+            "high-saturation",
+            "low-saturation",
+            "monochrome",
+            "reading-guide",
+            "reading-mask",
+            "big-cursor",
+            "no-animations", // tambahkan ini
         ];
         document.body.classList.remove(...resetClasses);
         // Hapus font-scale-* dari .content-wrapper
@@ -1934,7 +1985,9 @@ class AccessibilityWidget extends HTMLElement {
         this.fontSize = 100;
         this.imagesHidden = false;
         // Tampilkan kembali semua gambar
-        document.querySelectorAll(".image-wrapper, .gambar, .image-box, figure .carousel-container, img, .carousel-slide").forEach((el) => {
+        document
+            .querySelectorAll(".image-wrapper, .gambar, .image-box, figure .carousel-container, img, .carousel-slide")
+            .forEach((el) => {
             el.style.display = "";
         });
         // Reset tampilan font size
@@ -1951,13 +2004,15 @@ class AccessibilityWidget extends HTMLElement {
             window.googleTranslateElementInit = () => {
                 new window.google.translate.TranslateElement({
                     pageLanguage: "id",
-                    includedLanguages: 'en,ja,ko,nl,zh-CN,zh-TW,ru,ar,de,es,it,ms,th,vi,hi,fr,am,be,bg,ca,fy',
-                    layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-                    autoDisplay: false
+                    includedLanguages: "en,ja,ko,nl,zh-CN,zh-TW,ru,ar,de,es,it,ms,th,vi,hi,fr,am,be,bg,ca,fy",
+                    layout: window.google.translate.TranslateElement
+                        .InlineLayout.SIMPLE,
+                    autoDisplay: false,
                 }, "google_translate_element");
             };
             const script = document.createElement("script");
-            script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+            script.src =
+                "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
             document.body.appendChild(script);
         }
     }
