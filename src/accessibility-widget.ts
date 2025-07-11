@@ -176,13 +176,57 @@ class AccessibilityWidget extends HTMLElement {
     });
   }
 
-  readText(text: string): void {
-    this.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "id-ID";
-    utterance.rate = 1;
-    this.speechSynthesis.speak(utterance);
+  getSelectedTranslateLang(): string {
+  const frame = document.querySelector("iframe.goog-te-menu-frame") as HTMLIFrameElement | null;
+  if (!frame) return "id-ID"; // default bahasa Indonesia
+
+  try {
+    const langElement = frame.contentDocument?.querySelector(".goog-te-menu2-item-selected span.text") as HTMLElement;
+    if (!langElement) return "id-ID";
+
+    const langText = langElement.innerText.toLowerCase();
+
+    // Peta bahasa ke BCP 47 codes yang dikenali speechSynthesis
+    const langMap: Record<string, string> = {
+      'indonesian': 'id-ID',
+      'english': 'en-US',
+      'japanese': 'ja-JP',
+      'korean': 'ko-KR',
+      'dutch': 'nl-NL',
+      'chinese (simplified)': 'zh-CN',
+      'chinese (traditional)': 'zh-TW',
+      'russian': 'ru-RU',
+      'arabic': 'ar-SA',
+      'german': 'de-DE',
+      'spanish': 'es-ES',
+      'italian': 'it-IT',
+      'malay': 'ms-MY',
+      'thai': 'th-TH',
+      'vietnamese': 'vi-VN',
+      'hindi': 'hi-IN',
+      'french': 'fr-FR',
+      'armenian': 'hy-AM',
+      'belarusian': 'be-BY',
+      'bulgarian': 'bg-BG',
+      'catalan': 'ca-ES',
+      'frisian': 'fy-NL'
+    };
+
+    return langMap[langText] || 'id-ID'; // fallback
+  } catch {
+    return 'id-ID';
   }
+}
+
+  readText(text: string): void {
+  this.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = this.getSelectedTranslateLang(); // gunakan bahasa aktif
+  utterance.rate = 1;
+
+  this.speechSynthesis.speak(utterance);
+}
 
   setupEventListeners(): void {
   const $ = (selector: string) => this.querySelector(selector);
@@ -348,10 +392,11 @@ readerToggle?.addEventListener("click", () => {
       if (fontDisplay) fontDisplay.textContent = "130%";
       break;
     case "tunanetra":
-      this.speechEnabled = true;
-      if (readerBtn) readerBtn.classList.add("active");
-      this.readText("Fitur pembaca layar diaktifkan. Silakan blok teks untuk dibacakan.");
-      break;
+  this.speechEnabled = true;
+  if (readerBtn) readerBtn.classList.add("active");
+  const lang = this.getSelectedTranslateLang();
+  this.readText("Fitur pembaca layar diaktifkan. Silakan blok teks untuk dibacakan.");
+  break;
     case "kognitif":
       activateToggleButton("font-weight");
       activateToggleButton("high-contrast");

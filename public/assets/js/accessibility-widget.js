@@ -1583,10 +1583,51 @@ class AccessibilityWidget extends HTMLElement {
                 this.readText(selectedText);
         });
     }
+    getSelectedTranslateLang() {
+        var _a;
+        const frame = document.querySelector("iframe.goog-te-menu-frame");
+        if (!frame)
+            return "id-ID"; // default bahasa Indonesia
+        try {
+            const langElement = (_a = frame.contentDocument) === null || _a === void 0 ? void 0 : _a.querySelector(".goog-te-menu2-item-selected span.text");
+            if (!langElement)
+                return "id-ID";
+            const langText = langElement.innerText.toLowerCase();
+            // Peta bahasa ke BCP 47 codes yang dikenali speechSynthesis
+            const langMap = {
+                'indonesian': 'id-ID',
+                'english': 'en-US',
+                'japanese': 'ja-JP',
+                'korean': 'ko-KR',
+                'dutch': 'nl-NL',
+                'chinese (simplified)': 'zh-CN',
+                'chinese (traditional)': 'zh-TW',
+                'russian': 'ru-RU',
+                'arabic': 'ar-SA',
+                'german': 'de-DE',
+                'spanish': 'es-ES',
+                'italian': 'it-IT',
+                'malay': 'ms-MY',
+                'thai': 'th-TH',
+                'vietnamese': 'vi-VN',
+                'hindi': 'hi-IN',
+                'french': 'fr-FR',
+                'armenian': 'hy-AM',
+                'belarusian': 'be-BY',
+                'bulgarian': 'bg-BG',
+                'catalan': 'ca-ES',
+                'frisian': 'fy-NL'
+            };
+            return langMap[langText] || 'id-ID'; // fallback
+        }
+        catch (_b) {
+            return 'id-ID';
+        }
+    }
     readText(text) {
         this.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "id-ID";
+        utterance.lang = this.getSelectedTranslateLang(); // gunakan bahasa aktif
         utterance.rate = 1;
         this.speechSynthesis.speak(utterance);
     }
@@ -1735,6 +1776,7 @@ class AccessibilityWidget extends HTMLElement {
                     this.speechEnabled = true;
                     if (readerBtn)
                         readerBtn.classList.add("active");
+                    const lang = this.getSelectedTranslateLang();
                     this.readText("Fitur pembaca layar diaktifkan. Silakan blok teks untuk dibacakan.");
                     break;
                 case "kognitif":
