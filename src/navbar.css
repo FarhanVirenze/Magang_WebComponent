@@ -1,0 +1,196 @@
+/* ======================== */
+/* ====== DESKTOP NAV ===== */
+/* ======================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.navbar.transparent {
+  background-color: rgba(255, 255, 255, 0); /* transparan penuh */
+  color: #1e293b;
+  box-shadow: none;
+}
+
+.navbar.transparent .navbar-menu a {
+  color: white;
+}
+
+.navbar.scrolled {
+  background-color: white;
+  color: #1e293b;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled .navbar-menu a {
+  color: #1e293b;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navbar-logo img {
+  height: 65px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.navbar.scrolled .logo-text {
+  color: black;
+}
+
+.navbar-toggle {
+  display: none;
+  font-size: 1.5em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+.navbar.scrolled .navbar-toggle {
+  color: #1e293b;
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.navbar-menu li {
+  position: relative;
+}
+
+.navbar-menu a {
+  color: inherit;
+  font-weight: 500;
+  font-size: 0.95em;
+  text-decoration: none;
+}
+
+.navbar-menu .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  color: #1e293b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 0.5rem 0;
+  z-index: 999;
+  border-radius: 6px;
+  min-width: 160px;
+}
+
+.navbar-menu .dropdown-menu li {
+  padding: 0.5rem 1rem;
+}
+
+.navbar-menu .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.navbar-menu .dropdown-menu a:hover {
+  color: var(--primary);
+}
+
+/* ============================ */
+/* ========== MOBILE ========== */
+/* ============================ */
+
+@media (max-width: 1024px) {
+  .navbar-toggle {
+    display: block;
+  }
+
+  .navbar.transparent .navbar-menu a {
+    color: black;
+  }
+
+  .navbar-menu {
+    display: flex; /* jangan pakai display: none karena tidak bisa dianimasikan */
+    flex-direction: column;
+    width: 100%;
+    background-color: #ffffff;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 1rem 0;
+    border-top: 1px solid #e2e8f0;
+
+    /* Animasi slide in */
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .navbar-menu.open {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .navbar-menu li {
+    padding: 0.5rem 1.5rem;
+    width: 100%;
+  }
+
+  .navbar-menu .dropdown-menu {
+    position: static;
+    background: #f9fafb;
+    margin-top: 0.5rem;
+    box-shadow: none;
+    display: none;
+    border-left: 3px solid var(--primary);
+    border-radius: 4px;
+  }
+
+  .navbar-menu .dropdown.open .dropdown-menu {
+    display: block;
+  }
+
+  .navbar-menu .dropdown > a::after {
+    content: '▼';
+    display: inline-block;
+    font-size: 0.75em;
+    margin-left: 6px;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+  }
+
+  .navbar-menu .dropdown.open > a::after {
+    transform: rotate(180deg);
+  }
+}

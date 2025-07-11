@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diskominfo Jogja - Aksesibilitas</title>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.bunny.net" />
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" />
+
+  <!-- JS Bundles -->
+  <script type="text/javascript" src="assets/js/navbar.js" defer></script>
+  <script type="text/javascript" src="assets/js/carousel.js" defer></script>
+  <script type="text/javascript" src="assets/js/container.js" defer></script>
+  <script type="text/javascript" src="assets/js/accessibility-widget.js" defer></script>
+
+  <style>
+    :root {
+      --primary: #0f766e;
+      --text-color: #1e293b;
+      --bg-color: #f8fafc;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Figtree', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .news-section {
+      margin-top: 2rem;
+    }
+
+    .news-card {
+      background-color: #f1f5f9;
+      border-left: 4px solid var(--primary);
+      padding: 1rem;
+      margin-bottom: 1em;
+      border-radius: 6px;
+    }
+
+    .news-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1em;
+      color: #0f172a;
+    }
+
+    .news-card p {
+      margin: 0;
+      font-size: 0.95em;
+      color: #334155;
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.4rem;
+      background-color: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    a.button:hover {
+      background-color: #115e59;
+    }
+
+    img.responsive-img {
+      margin-top: 1rem;
+      max-width: 100%;
+      border-radius: 8px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+ 
+  <accessibility-widget></accessibility-widget>
+
+  <!-- Semua konten utama dibungkus di sini -->
+  <div class="content-wrapper">
+
+    <main-navbar></main-navbar>
+    <image-carousel></image-carousel>
+    <main-container></main-container>
+
+    <section class="news-section">
+      <h2>Berita Terkini</h2>
+
+      <div class="news-card">
+        <h3>Transformasi Digital DIY 2025</h3>
+        <p>Dinas Kominfo DIY menggelar pelatihan literasi digital untuk mendukung transformasi digital yang inklusif dan merata.</p>
+      </div>
+
+      <div class="news-card">
+        <h3>Peluncuran Aplikasi Jogja Smart Province</h3>
+        <p>Aplikasi baru untuk memantau layanan publik dan interaksi masyarakat kini hadir di platform Android dan iOS.</p>
+      </div>
+    </section>
+
+  </div> 
+</body>
+</html>

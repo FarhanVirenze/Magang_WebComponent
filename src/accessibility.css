@@ -1,0 +1,748 @@
+@font-face {
+  font-family: 'Disleksia';
+  src: url('./disleksia.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* =======================================
+   === SKALA & AKSESIBILITAS GLOBAL ===
+======================================= */
+html[class*="font-scale-"],
+.content-wrapper[class*="font-scale-"] {
+  font-size: 100% !important;
+}
+
+.content-wrapper.font-scale-50  { font-size: 50% !important; }
+.content-wrapper.font-scale-60  { font-size: 60% !important; }
+.content-wrapper.font-scale-70  { font-size: 70% !important; }
+.content-wrapper.font-scale-80  { font-size: 80% !important; }
+.content-wrapper.font-scale-90  { font-size: 90% !important; }
+.content-wrapper.font-scale-100 { font-size: 100% !important; }
+.content-wrapper.font-scale-110 { font-size: 110% !important; }
+.content-wrapper.font-scale-120 { font-size: 120% !important; }
+.content-wrapper.font-scale-130 { font-size: 130% !important; }
+.content-wrapper.font-scale-140 { font-size: 140% !important; }
+.content-wrapper.font-scale-150 { font-size: 150% !important; }
+.content-wrapper.font-scale-160 { font-size: 160% !important; }
+.content-wrapper.font-scale-170 { font-size: 170% !important; }
+.content-wrapper.font-scale-180 { font-size: 180% !important; }
+.content-wrapper.font-scale-190 { font-size: 190% !important; }
+.content-wrapper.font-scale-200 { font-size: 200% !important; }
+
+/* =======================================
+   === GAYA TAMBAHAN UNTUK AKSESIBILITAS ===
+======================================= */
+body.highlight-title .content-wrapper h1,
+body.highlight-title .content-wrapper h2,
+body.highlight-title .content-wrapper h3 {
+  background-color: #fef08a;
+  padding: 4px 8px;
+  border-left: 5px solid #facc15;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  color: #1e293b;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+body.highlight-links .content-wrapper a {
+  background-color: #dbeafe;
+  color: #000 !important;
+  padding: 2px 4px;
+  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 0 0 0 3px #93c5fd inset;
+  transition: all 0.2s ease;
+}
+
+body.highlight-links .content-wrapper a:hover {
+  background-color: #bfdbfe;
+}
+
+body.dyslexia-font,
+body.dyslexia-font * {
+  font-family: "Disleksia", Arial, sans-serif !important;
+}
+
+body.letter-spacing .content-wrapper * {
+  letter-spacing: 0.1em !important;
+}
+
+body.line-height .content-wrapper * {
+  line-height: 2 !important;
+}
+
+body.font-weight .content-wrapper,
+body.font-weight .content-wrapper * {
+  font-weight: bold !important;
+}
+
+body.dark-contrast .content-wrapper {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+body.light-contrast .content-wrapper {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+body.high-contrast .content-wrapper {
+  filter: contrast(150%);
+}
+
+body.high-saturation .content-wrapper {
+  filter: saturate(220%);
+}
+
+body.low-saturation .content-wrapper {
+  filter: saturate(50%);
+}
+
+body.monochrome .content-wrapper {
+  filter: grayscale(100%);
+}
+
+/* === Penunjuk Baca === */
+body.reading-guide {
+  cursor: default !important;
+}
+
+body.reading-guide::before {
+  content: "";
+  position: fixed;
+  top: var(--reading-guide-top, 50%);
+  left: var(--reading-guide-left, 50%);
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 6px;
+  background-color: black;
+  border: 3px solid yellow;
+  border-radius: 8px;
+  z-index: 10001;
+  pointer-events: none;
+  transition: top 50ms ease, left 50ms ease;
+}
+
+body.reading-guide::after {
+  content: "";
+  position: fixed;
+  top: var(--reading-guide-top, 50%);
+  left: var(--reading-guide-left, 50%);
+  transform: translate(-50%, -85%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  border: 2px solid yellow;
+  z-index: 10002;
+  pointer-events: none;
+  transition: top 50ms ease, left 50ms ease;
+}
+
+body.reading-mask::before {
+  content: "";
+  position: fixed;
+  top: var(--reading-mask-top, 50%);
+  left: 0;
+  width: 100%;
+  height: 105px;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  z-index: 9999;
+  transition: top 0.1s ease;
+}
+
+/* === Cursor Besar === */
+body.big-cursor,
+body.big-cursor * {
+  cursor: url('./cursor.cur'), auto;
+}
+
+body.big-cursor input,
+body.big-cursor textarea {
+  cursor: text !important;
+}
+
+/* =======================================
+   === MENU AKSESIBILITAS & TOGGLE ===
+======================================= */
+body,
+html {
+  overflow-x: hidden;
+}
+
+.accessibility-toggle {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  z-index: 9999;
+  transform: translateY(-50%);
+  cursor: grab;
+  transition: left 0.2s ease, top 0.2s ease;
+}
+
+.accessibility-toggle:active {
+  cursor: grabbing;
+}
+
+.accessibility-toggle.menu-open {
+  display: none;
+}
+
+.accessibility-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 40px;
+  background: #f3f4f6;
+  width: 532px;
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 9998;
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  box-sizing: border-box;
+  overflow-x: hidden;
+   box-shadow: 
+  -1px 0 1px rgba(0, 0, 0, 0.06),
+  -4px 0 6px rgba(0, 0, 0, 0.1),
+  -10px 0 20px rgba(0, 0, 0, 0.12);
+}
+
+.accessibility-menu.open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.menu-header {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2a9672;
+  padding: 0.7rem 1.25rem;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.menu-header h2 {
+  font-size: 1rem;
+  font-weight: bolder;
+  color: white;
+}
+
+.close-btn {
+  font-size: 2rem;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.menu-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+}
+
+/* Posisi Toggle Tambahan */
+.accessibility-toggle.kiri-bawah     { bottom: 20px; left: 20px; top: auto; right: auto; transform: none; }
+.accessibility-toggle.kanan-bawah    { bottom: 20px; right: 20px; top: auto; left: auto; transform: none; }
+.accessibility-toggle.kiri-atas      { top: 20px; left: 20px; bottom: auto; right: auto; transform: none; }
+.accessibility-toggle.kanan-atas     { top: 20px; right: 20px; bottom: auto; left: auto; transform: none; }
+.accessibility-toggle.kiri-tengah    { top: 50%; left: 20px; right: auto; bottom: auto; transform: translateY(-50%); }
+.accessibility-toggle.kanan-tengah   { top: 50%; right: 20px; left: auto; bottom: auto; transform: translateY(-50%); }
+.accessibility-toggle.bawah-tengah   { bottom: 20px; left: 50%; top: auto; right: auto; transform: translateX(-50%); }
+.accessibility-toggle.atas-tengah    { top: 20px; left: 50%; bottom: auto; right: auto; transform: translateX(-50%); }
+
+/* =======================================
+   === ISI MENU & TOMBOL ===
+======================================= */
+.section {
+  margin-bottom: 1.75rem;
+}
+
+.section label,
+.section p {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.section select,
+.goog-te-combo {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.875rem;
+  font-family: inherit;
+  background-color: #fff;
+  appearance: none;
+  margin-top: 1rem;
+}
+
+.font-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  padding: 2px;
+  border-radius: 1rem;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.font-controls .btn {
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f3f4f6;
+}
+
+.grid-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 0.75rem;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.83rem;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #ffffff;
+  height: 100px;
+  width: 148px;
+}
+
+.btn:hover {
+  border: 2px solid #16a34a !important;
+  background: #fff;
+}
+
+.btn.active {
+  border: 2px solid #16a34a !important;
+  color: #16a34a !important;
+  background-color: #e6f4ec !important;
+  position: relative;
+}
+
+.btn.active::after {
+  content: "✔";
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 1rem;
+  color: #16a34a;
+}
+
+.toggle-button {
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
+  box-shadow: none;
+}
+
+.toggle-button img {
+  width: 115px;
+  height: 125px;
+}
+
+.reset-btn {
+  width: 100%;
+  background: #2a9672;
+  color: white;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  background: #238061;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* NON-ANIMASI MODE */
+body.no-animations *,
+body.no-animations *::before,
+body.no-animations *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.icon-wrapper {
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.icon-wrapper img {
+  width: 46px;
+  height: 39px;
+}
+
+.translate-box {
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .accessibility-menu {
+    width: 98vw;
+    height: 100vh;
+    top: 0;
+    margin-top: 40px;
+    padding: 0 1.25rem 1.25rem;
+    border-left: none;
+    border-radius: 0;
+  }
+
+  .menu-header {
+    margin: 0 -1.25rem 1.5rem;
+    border-radius: 0;
+    position: sticky;
+    z-index: 10;
+    background-color: #29a078;
+  }
+
+  .menu-header h2 {
+    font-size: 1rem;
+  }
+
+  .close-btn {
+    font-size: 1.75rem;
+  }
+
+  .btn.active {
+    border: 2px solid #16a34a !important;
+    color: #16a34a !important;
+    background-color: #e6f4ec !important;
+    position: relative;
+  }
+
+  .grid-buttons {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .btn {
+    width: 100%;
+    height: auto;
+    padding: 0.65rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+
+  .font-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .font-controls .btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+
+  .section select,
+  .goog-te-combo {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  .reset-btn {
+    font-size: 0.95rem;
+    padding: 0.65rem;
+  }
+
+  .accessibility-toggle {
+    top: 20px;
+    right: 20px;
+    left: auto;
+    bottom: auto;
+    transform: none;
+  }
+
+  .toggle-button img {
+    width: 95px;
+    height: 100px;
+  }
+
+  .accessibility-toggle .toggle-button {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .accessibility-menu {
+    width: 97.5vw;
+    height: 100vh;
+    top: 0;
+    margin-top: 40px;
+    padding: 0 1.25rem 1.25rem;
+    border-left: none;
+    border-radius: 0;
+  }
+
+  .menu-header {
+    margin: 0 -1.25rem 1.5rem;
+    border-radius: 0;
+    position: sticky;
+    z-index: 10;
+    background-color: #29a078;
+  }
+
+  .menu-header h2 {
+    font-size: 1rem;
+  }
+
+  .close-btn {
+    font-size: 1.75rem;
+  }
+
+  .btn.active {
+    border: 2px solid #16a34a !important;
+    color: #16a34a !important;
+    background-color: #e6f4ec !important;
+    position: relative;
+  }
+
+  .grid-buttons {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .btn {
+    width: 100%;
+    height: auto;
+    padding: 0.65rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+
+  .font-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .font-controls .btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+
+  .section select,
+  .goog-te-combo {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  .reset-btn {
+    font-size: 0.95rem;
+    padding: 0.65rem;
+  }
+
+  .accessibility-toggle {
+    top: 20px;
+    right: 20px;
+    left: auto;
+    bottom: auto;
+    transform: none;
+  }
+
+  .toggle-button img {
+    width: 95px;
+    height: 100px;
+  }
+
+  .accessibility-toggle .toggle-button {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .accessibility-menu {
+    width: 100vw;
+    padding: 0 1rem 1.5rem;
+  }
+
+  .menu-header {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .grid-buttons {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .btn {
+    width: 100%;
+    height: auto;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .icon-wrapper {
+    font-size: 1.5rem;
+  }
+
+  .toggle-button img {
+    width: 85px;
+    height: 90px;
+  }
+
+  .section label,
+  .section p {
+    font-size: 1rem;
+  }
+
+  .font-controls {
+    gap: 0.3rem;
+  }
+
+  .font-controls .btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .reset-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .accessibility-menu {
+    width: 100vw;
+    height: 100vh;
+    padding: 0 0.75rem 1rem;
+    border-left: none;
+    border-radius: 0;
+  }
+
+  .menu-header {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .close-btn {
+    font-size: 1.5rem;
+  }
+
+  .grid-buttons {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .btn {
+    width: 100%;
+    height: auto;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .font-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .font-controls .btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+
+  .reset-btn {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+
+  .toggle-button img {
+    width: 85px;
+    height: 95px;
+  }
+}
+
+@media (max-width: 240px) {
+  .accessibility-menu {
+    width: 100vw;
+    height: 100vh;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    overflow-y: auto;
+  }
+
+  .menu-header {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .grid-buttons {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+  }
+
+  .btn {
+    width: 100%;
+    height: auto;
+    padding: 0.4rem;
+    font-size: 0.65rem;
+  }
+
+  .font-controls {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .font-controls .btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  .close-btn {
+    font-size: 1.25rem;
+  }
+
+  .reset-btn {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .toggle-button img {
+    width: 70px;
+    height: 80px;
+  }
+}
